@@ -37,22 +37,22 @@ class Board(object):
         self.notify()
 
     def change_turn(self):
-        if self.now_player == self.player2:
-            self.now_player = self.player1
-            self.turn = self.turn + 1
-            if self.player1['state'] == 'Human':
+        if self.now_player == self.player1:
+            self.now_player = self.player2
+
+            if self.now_player['state'] == 'Human':
                 pass
-            elif self.player1['state'] == 'Computer':
+            elif self.now_player['state'] == 'Computer':
                 x, y = self.com2.randomAI(self)
                 self.put(x, y)
 
         else:
-            self.now_player = self.player2
+            self.now_player = self.player1
 
-            if self.player1['state'] == 'Human':
+            if self.now_player['state'] == 'Human':
                 pass
-            elif self.player1['state'] == 'Computer':
-                x, y = self.com2.randomAI(self)
+            elif self.now_player['state'] == 'Computer':
+                x, y = self.com1.randomAI(self)
                 self.put(x, y)
 
         self.turn = self.turn + 1
@@ -201,5 +201,5 @@ class Board(object):
             message = ('Lose','Win')
         else:
             message = ('Draw','Draw')
-        self.info = '{}{}{}'.format(message[0],self.info,message[1])
+        self.info = '{}-{}:{}-{}'.format(message[0],self.player1['num'], self.player2['num'],message[1])
         self.notify()
